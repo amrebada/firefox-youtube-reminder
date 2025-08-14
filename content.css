@@ -1,0 +1,134 @@
+/* Content script styles for YouTube Video Reminders */
+
+.yt-reminder-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.yt-reminder-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.yt-reminder-btn:active {
+    transform: translateY(0);
+}
+
+.yt-reminder-btn svg {
+    width: 18px;
+    height: 18px;
+    opacity: 0.9;
+}
+
+/* Dark theme support */
+html[dark] .yt-reminder-btn,
+[dark] .yt-reminder-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Animation for button appearance */
+.yt-reminder-btn {
+    animation: reminderBtnSlideIn 0.3s ease-out;
+}
+
+@keyframes reminderBtnSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .yt-reminder-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin-left: 4px;
+    }
+    
+    .yt-reminder-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Integration with YouTube's button styles */
+ytd-button-renderer .yt-reminder-btn,
+#top-level-buttons .yt-reminder-btn {
+    margin: 0 4px;
+}
+
+/* Ensure proper positioning in different YouTube layouts */
+#actions .yt-reminder-btn {
+    margin-left: 8px;
+}
+
+#top-level-buttons-computed .yt-reminder-btn {
+    margin: 0 4px;
+}
+
+/* Accessibility improvements */
+.yt-reminder-btn:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.yt-reminder-btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Notification styles */
+.yt-reminder-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 300px;
+    animation: notificationSlideIn 0.3s ease-out;
+}
+
+@keyframes notificationSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

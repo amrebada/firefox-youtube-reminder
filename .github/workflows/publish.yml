@@ -1,0 +1,43 @@
+name: Publish Firefox Extension
+
+on:
+  push:
+    branches: [ main ]
+    # Only trigger when commit message starts with "release:"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, 'release:')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install web-ext
+        run: npm install -g web-ext
+
+      - name: Make publish script executable
+        run: chmod +x .scripts/publish.sh
+
+      - name: Publish extension
+        env:
+          AMO_API_KEY: ${{ secrets.AMO_API_KEY }}
+          AMO_API_SECRET: ${{ secrets.AMO_API_SECRET }}
+        run: |
+          cd ${{ github.workspace }}
+          /bin/bash ./.scripts/publish.sh
+
+      - name: Commit version bump
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add manifest.json
+          git commit -m "chore: bump version after release" || echo "No changes to commit"
+          git push || echo "No changes to push"

@@ -1,0 +1,61 @@
+{
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{f06be63e-0c92-45f0-82fb-a66ab994d826}"
+    }
+  },
+  "manifest_version": 2,
+  "name": "YouTube Video Reminders",
+  "version": "1.2",
+  "description": "Set reminders for YouTube videos with custom intervals and receive notifications",
+  "license": "MIT",
+  "permissions": [
+    "storage",
+    "notifications",
+    "alarms",
+    "tabs",
+    "*://www.youtube.com/*",
+    "*://youtube.com/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Video Reminders",
+    "default_icon": {
+      "16": "icons/icon-16.jpg",
+      "32": "icons/icon-32.jpg",
+      "48": "icons/icon-48.jpg",
+      "128": "icons/icon-128.jpg"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.jpg",
+    "32": "icons/icon-32.jpg",
+    "48": "icons/icon-48.jpg",
+    "128": "icons/icon-128.jpg"
+  },
+  "web_accessible_resources": [
+    "popup.html",
+    "popup.css",
+    "popup.js"
+  ]
+}
