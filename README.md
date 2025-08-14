@@ -1,5 +1,6 @@
 # YouTube Video Reminders Firefox Extension
 
+![YouTube Video Reminders](assets/social.png)
 A Firefox extension that allows you to set custom reminders for YouTube videos with various time intervals. Get notifications to watch your favorite videos again!
 
 ## Features
