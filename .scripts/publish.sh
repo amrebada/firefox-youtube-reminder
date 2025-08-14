@@ -13,8 +13,16 @@ NEW_VERSION="$MAJOR.$NEW_MINOR"
 echo "New version: $NEW_VERSION"
 
 # update the version in the manifest.json
-sed -i '' "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" manifest.json
-
+if uname -a | grep -qi "darwin"; then
+    echo "Running on macOS"
+    sed -i '' "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" manifest.json
+elif uname -a | grep -qi "linux"; then
+    echo "Running on Linux"
+    sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/" manifest.json
+else
+    echo "Unknown OS"
+    exit 1
+fi
 # build the extension
 web-ext build --overwrite-dest
 
@@ -32,4 +40,4 @@ if [ -z "$AMO_API_KEY" ] || [ -z "$AMO_API_SECRET" ]; then
 fi
 
 # Publish the extension to the Mozilla Add-ons store
-web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" --channel=listed
+web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" --channel=listed --approval-timeout=10
